@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from 'express';
-import { User } from '../models';
+import User from '../../models/User';
 
 const router: Router = express.Router();
 
@@ -43,7 +43,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     const savedUser = await user.save();
     const userResponse = savedUser.toObject();
-    delete userResponse.password;
+    userResponse.password = undefined as any;
 
     res.status(201).json(userResponse);
   } catch (error) {
